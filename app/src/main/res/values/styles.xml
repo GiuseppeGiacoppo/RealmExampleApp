@@ -1,0 +1,61 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="main_list_item">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="label">
+        <item name="android:textSize">20dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+
+    <style name="ItemAccountName">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">@dimen/app_text_size_xlarge</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_large</item>
+    </style>
+
+
+    <style name="ItemAccountTotal">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">@dimen/app_text_size_large</item>
+        <item name="android:layout_marginRight">@dimen/spacing_large</item>
+    </style>
+
+    <style name="ItemAccountTransactions">
+        <item name="android:textColor">@android:color/secondary_text_light</item>
+        <item name="android:textSize">@dimen/app_text_size_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_large</item>
+    </style>
+
+    <style name="ItemTransactionName">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">@dimen/app_text_size_xlarge</item>
+    </style>
+
+    <style name="ItemTransactionAmount">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">@dimen/app_text_size_xlarge</item>
+    </style>
+
+    <style name="comparison_result">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">@dimen/app_text_size_medium</item>
+    </style>
+</resources>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_comparison"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.giacoppo.realmexampleapp.ui.comparison.ComparisonActivity">
+
+    <Button
+        android:id="@+id/write_comparison"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:text="Comparison\nwriting" />
+
+    <Button
+        android:id="@+id/read_comparison"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:text="Comparison\nreading" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_margin="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_normal">
+
+        <ScrollView
+            android:id="@+id/comparison_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/comparison_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_micro"
+                    android:layout_marginStart="@dimen/spacing_micro"
+                    android:layout_marginTop="@dimen/spacing_micro" />
+
+                <TextView
+                    android:id="@+id/progress"
+                    style="@style/comparison_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_micro"
+                    android:layout_marginStart="@dimen/spacing_micro"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/write_comparison"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_normal"
+        android:text="@string/results" />
+</RelativeLayout>

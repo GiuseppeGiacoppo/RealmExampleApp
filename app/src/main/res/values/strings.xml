@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Realm example</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="delete_confirm">Do you want to delete the account?</string>
+    <string name="wallet_app">Wallet App</string>
+    <string name="comparison">Comparison</string>
+    <string name="account_name">Account name</string>
+    <string name="add">add</string>
+    <string name="accounts">Accounts</string>
+    <string name="erase_dbs">Erase DBs</string>
+    <string name="results">Results</string>
+    <string name="transactions">Transactions</string>
+    <string name="amount">Amount</string>
+    <string name="transaction_name">Transaction name</string>
+    <plurals name="transactions">
+        <item quantity="one">%d transaction</item>
+        <item quantity="other">%d transactions</item>
+    </plurals>
+</resources>

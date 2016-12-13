@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default material sizes -->
+    <dimen name="button_width_min">88dp</dimen>
+    <dimen name="button_height">36dp</dimen>
+    <dimen name="icon_size_small">24dp</dimen>
+    <dimen name="icon_size_normal">48dp</dimen>
+    <dimen name="icon_size_large">64dp</dimen>
+    <dimen name="icon_size_big">96dp</dimen>
+    <dimen name="icon_padding_small">4dp</dimen>
+    <dimen name="icon_padding_normal">12dp</dimen>
+    <dimen name="icon_padding_large">12dp</dimen>
+    <dimen name="icon_padding_big">12dp</dimen>
+    <dimen name="avatar_size_normal">48dp</dimen>
+    <dimen name="avatar_size_large">64dp</dimen>
+    <dimen name="avatar_padding_normal">4dp</dimen>
+    <dimen name="avatar_padding_large">8dp</dimen>
+
+    <!-- toolbar -->
+    <dimen name="toolbar_height">?actionBarSize</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+
+    <!-- standard metrics -->
+    <dimen name="spacing_content">72dp</dimen>
+    <dimen name="spacing_xxlarge">64dp</dimen>
+    <dimen name="spacing_xlarge">32dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
+    <dimen name="spacing_xmicro">2dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+
+    <!-- App Primary Text Sizes -->
+    <dimen name="app_text_size_xsmall">11sp</dimen>
+    <dimen name="app_text_size_small">12sp</dimen>
+    <dimen name="app_text_size_medium">14sp</dimen>
+    <dimen name="app_text_size_large">18sp</dimen>
+    <dimen name="app_text_size_xlarge">20sp</dimen>
+    <dimen name="app_text_size_xxlarge">24sp</dimen>
+    <dimen name="app_text_size_diff_large_small">6sp</dimen>
+
+
+    <!-- main drawer sizes -->
+    <dimen name="left_drawer_width">316dp</dimen>
+</resources>

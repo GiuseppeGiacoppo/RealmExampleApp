@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:showDividers="middle"
+    android:divider="@android:drawable/divider_horizontal_textfield"
+    tools:context="me.giacoppo.realmexampleapp.ui.MainActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/main_list_item"
+                android:id="@+id/item_example"
+                android:layout_width="match_parent"
+                android:text="Example app" />
+
+            <TextView
+                style="@style/main_list_item"
+                android:id="@+id/item_comparison"
+                android:layout_width="match_parent"
+                android:text="Comparison with SQLite" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

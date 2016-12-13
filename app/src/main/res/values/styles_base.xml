@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme.AppCompat.NoActionBar.FullScreen" parent="@style/Theme.AppCompat">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme.Dialog.Light" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="line_separator">
+        <item name="android:layout_margin">@dimen/spacing_normal</item>
+        <item name="android:background">@color/grey_400</item>
+    </style>
+
+    <style name="horizontal_line_separator" parent="line_separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+    </style>
+
+    <style name="icon">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="iconSmall" parent="icon">
+        <item name="android:layout_width">@dimen/icon_size_small</item>
+        <item name="android:layout_height">@dimen/icon_size_small</item>
+        <item name="android:padding">@dimen/icon_padding_small</item>
+    </style>
+
+    <style name="iconNormal" parent="icon">
+        <item name="android:layout_width">@dimen/icon_size_normal</item>
+        <item name="android:layout_height">@dimen/icon_size_normal</item>
+        <item name="android:padding">@dimen/icon_padding_normal</item>
+    </style>
+
+    <style name="iconLarge" parent="icon">
+        <item name="android:layout_width">@dimen/icon_size_large</item>
+        <item name="android:layout_height">@dimen/icon_size_large</item>
+        <item name="android:padding">@dimen/icon_padding_large</item>
+    </style>
+
+    <style name="iconNormalDark" parent="iconNormal">
+        <item name="android:fillColor">@color/iconPrimaryColorDark</item>
+        <item name="android:tint">@color/iconPrimaryColorDark</item>
+    </style>
+
+    <style name="iconLargeDark" parent="iconLarge">
+        <item name="android:fillColor">@color/iconPrimaryColorDark</item>
+        <item name="android:tint">@color/iconPrimaryColorDark</item>
+    </style>
+
+    <style name="avatarNormal">
+        <item name="android:layout_width">@dimen/avatar_size_normal</item>
+        <item name="android:layout_height">@dimen/avatar_size_normal</item>
+        <item name="android:padding">@dimen/avatar_padding_normal</item>
+    </style>
+
+    <style name="avatarLarge">
+        <item name="android:layout_width">@dimen/avatar_size_large</item>
+        <item name="android:layout_height">@dimen/avatar_size_large</item>
+        <item name="android:padding">@dimen/avatar_padding_large</item>
+    </style>
+    <style name="iconBig">
+        <item name="android:layout_width">@dimen/icon_size_big</item>
+        <item name="android:layout_height">@dimen/icon_size_big</item>
+        <item name="android:padding">@dimen/icon_padding_big</item>
+    </style>
+
+</resources>
