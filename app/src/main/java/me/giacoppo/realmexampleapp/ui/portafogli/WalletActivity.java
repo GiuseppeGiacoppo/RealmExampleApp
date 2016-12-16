@@ -59,21 +59,6 @@ public class WalletActivity extends AppCompatActivity implements OnItemClickList
         adapter.setList(accounts);
 
         recyclerView.setAdapter(adapter);
-
-
-        final RealmAccount result =
-                realm
-                .where(RealmAccount.class)
-                .equalTo(RealmAccount.FIELDS.NAME, "Portafogli")
-                .findFirst(); // Ottengo il primo tra i conti col nome "Portafogli"
-
-        realm.beginTransaction();
-        result.setName("Nuovo nome");
-        realm.commitTransaction(); //Il conto precedentemente trovato adesso si chiama "Nuovo nome"
-
-        realm.beginTransaction();
-        result.deleteFromRealm();
-        realm.commitTransaction(); //Il conto precedentemente trovato è stato cancellato
     }
 
     public static Intent getIntent(Context context) {

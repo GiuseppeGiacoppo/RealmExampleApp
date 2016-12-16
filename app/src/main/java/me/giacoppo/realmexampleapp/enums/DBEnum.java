@@ -5,5 +5,5 @@ package me.giacoppo.realmexampleapp.enums;
  */
 
 public enum DBEnum {
-    REALM, REALM_MULTIPLE, SQLITE;
+    REALM, SQLITE;
 }

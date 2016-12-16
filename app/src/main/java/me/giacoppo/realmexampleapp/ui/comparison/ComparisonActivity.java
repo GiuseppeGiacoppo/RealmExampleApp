@@ -8,11 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 import me.giacoppo.realmexampleapp.R;
 import me.giacoppo.realmexampleapp.enums.DBEnum;
@@ -30,22 +33,23 @@ import me.giacoppo.realmexampleapp.sqlite.MyDatabaseHelper;
 import me.giacoppo.realmexampleapp.sqlite.tables.AccountTable;
 
 import static me.giacoppo.realmexampleapp.enums.DBEnum.REALM;
-import static me.giacoppo.realmexampleapp.enums.DBEnum.REALM_MULTIPLE;
 import static me.giacoppo.realmexampleapp.enums.DBEnum.SQLITE;
 
 public class ComparisonActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final long TEST_ENTRIES = 1000;
+    private static final long TEST_ENTRIES = 5000;
 
-    private List<RealmAccount> realmAccounts = new ArrayList<>();
+    //private List<RealmAccount> realmAccounts = new ArrayList<>();
     private Realm realmMain, realm;
     private RealmConfiguration realmComparison, realm2Comparison;
     private MyDatabaseHelper sqlite;
     private SQLiteDatabase db;
     private ScrollView scroll;
 
-    private Button writeComparison, readComparison;
+    private TextView readComparison,writeComparisonLabel;
+    private RelativeLayout writeComparison;
+    private EditText writeComparisonNumber;
 
-    private boolean realmWriteCompleted, realm2WriteCompleted, sqliteWriteCompleted;
+    private boolean realmWriteCompleted, sqliteWriteCompleted;
     private boolean realmReadCompleted, sqliteReadCompleted;
     private TextView text, progress;
 
@@ -59,24 +63,27 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         progress = (TextView) findViewById(R.id.progress);
 
         scroll = (ScrollView) findViewById(R.id.comparison_scrollview);
-        writeComparison = (Button) findViewById(R.id.write_comparison);
-        readComparison = (Button) findViewById(R.id.read_comparison);
+        writeComparison = (RelativeLayout) findViewById(R.id.write_comparison);
+        readComparison = (TextView) findViewById(R.id.read_comparison);
+        writeComparisonLabel = (TextView) findViewById(R.id.write_comparison_label);
+        writeComparisonNumber = (EditText) findViewById(R.id.write_comparison_entries);
 
         readComparison.setOnClickListener(this);
         writeComparison.setOnClickListener(this);
 
         realmComparison = new RealmConfiguration.Builder()
                 .name("comparison.realm")
+                .deleteRealmIfMigrationNeeded()
                 .build();
 
         realm2Comparison = new RealmConfiguration.Builder()
                 .name("comparison2.realm")
+                .deleteRealmIfMigrationNeeded()
                 .build();
 
         sqlite = new MyDatabaseHelper(getApplicationContext());
         db = sqlite.getWritableDatabase();
 
-        new CreatingListTask().execute();
     }
 
     private int realmReadTest() {
@@ -132,17 +139,24 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.write_comparison:
-                text.append("\n\nWriting " + TEST_ENTRIES + " entries...");
-
+                long entries;
+                if (TextUtils.isEmpty(writeComparisonNumber.getText()))
+                    entries = TEST_ENTRIES;
+                else
+                entries  = Integer.parseInt(writeComparisonNumber.getText().toString());
                 realmWriteCompleted = false;
-                realm2WriteCompleted = false;
                 sqliteWriteCompleted = false;
 
                 writeComparison.setEnabled(false);
+                writeComparisonLabel.setEnabled(false);
+                writeComparisonNumber.setEnabled(false);
                 readComparison.setEnabled(false);
-                new WritingTask().execute(REALM);
-                new WritingTask().execute(REALM_MULTIPLE);
-                new WritingTask().execute(SQLITE);
+                text.append("\n\nGenerating " + entries + " entries...");
+                List<RealmAccount> generatedList = genList(entries);
+
+                text.append("\n\nWriting " + entries + " entries...");
+                new WritingTask(generatedList).execute(REALM);
+                new WritingTask(generatedList).execute(SQLITE);
                 break;
             case R.id.read_comparison:
                 text.append("\n\nReading...");
@@ -152,41 +166,23 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
                 readComparison.setEnabled(false);
                 writeComparison.setEnabled(false);
+                writeComparisonNumber.setEnabled(false);
+                writeComparisonLabel.setEnabled(false);
+
                 new ReadingTask().execute(REALM);
                 new ReadingTask().execute(SQLITE);
                 break;
         }
     }
 
-    private class CreatingListTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            text.append("Creating list...");
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            for (int i = 0; i < TEST_ENTRIES; i++) {
-                RealmAccount account = new RealmAccount();
-                account.setId(UUID.randomUUID().toString());
-                account.setName("Account " + i);
-                realmAccounts.add(account);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            text.append("\nList ready!");
-        }
-    }
-
     private class WritingTask extends AsyncTask<DBEnum, Integer, Long> {
+        private List<RealmAccount> generatedList;
         private DBEnum type;
-        long startTime;
+        private long startTime;
+
+        WritingTask(List<RealmAccount> list) {
+            this.generatedList = list;
+        }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
@@ -201,46 +197,33 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                 case REALM:
                     try {
                         realm = Realm.getInstance(realmComparison);
+                        RealmList<RealmAccount> list = new RealmList<>();
+                        list.addAll(generatedList);
                         startTime = System.currentTimeMillis();
                         realm.beginTransaction();
-                        for (int i = 0; i < realmAccounts.size(); i++) {
-                            RealmAccount account = realmAccounts.get(i);
-                            account.setId(UUID.randomUUID().toString());
-                            realm.copyToRealm(account);
-                            publishProgress((int)(100 * i / realmAccounts.size()));
-                        }
+                        realm.copyToRealm(list);
                         realm.commitTransaction();
-                    } finally {
-                        realm.close();
-                    }
-                    break;
-                case REALM_MULTIPLE:
-                    try {
-                        realm = Realm.getInstance(realm2Comparison);
-                        startTime = System.currentTimeMillis();
-                        for (int i = 0; i < realmAccounts.size(); i++) {
-                            realm.beginTransaction();
-                            RealmAccount account = realmAccounts.get(i);
-                            account.setId(UUID.randomUUID().toString());
-                            realm.copyToRealm(account);
-                            realm.commitTransaction();
-                            publishProgress((int)(100 * i / realmAccounts.size()));
-                        }
                     } finally {
                         realm.close();
                     }
                     break;
                 case SQLITE:
                     startTime = System.currentTimeMillis();
-                    for (int i = 0; i < realmAccounts.size(); i++) {
-                        RealmAccount account = realmAccounts.get(i);
-                        account.setId(UUID.randomUUID().toString());
-                        ContentValues values = new ContentValues();
-                        values.put(AccountTable._ID, account.getId());
-                        values.put(AccountTable.NAME, account.getName());
-                        values.put(AccountTable.TOTAL, 0);
-                        db.insert(AccountTable.TABLE_NAME, null, values);
-                        publishProgress((int)(100 * i / realmAccounts.size()));
+                    db.beginTransaction();
+                    try {
+                        for (int i = 0; i < generatedList.size(); i++) {
+                            RealmAccount account = generatedList.get(i);
+                            account.setId(UUID.randomUUID().toString());
+                            ContentValues values = new ContentValues();
+                            values.put(AccountTable._ID, account.getId());
+                            values.put(AccountTable.NAME, account.getName());
+                            values.put(AccountTable.TOTAL, 0);
+                            db.insert(AccountTable.TABLE_NAME, null, values);
+                            publishProgress((int) (100 * i / generatedList.size()));
+                        }
+                        db.setTransactionSuccessful();
+                    } finally {
+                        db.endTransaction();
                     }
                     break;
             }
@@ -256,13 +239,9 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                     realmWriteCompleted = true;
                     text.append("\nRealm, 1 transaction: ");
                     break;
-                case REALM_MULTIPLE:
-                    realm2WriteCompleted = true;
-                    text.append("\nRealm, " + TEST_ENTRIES + " transactions: ");
-                    break;
                 case SQLITE:
                     sqliteWriteCompleted = true;
-                    text.append("\nSqlite: ");
+                    text.append("\nSqlite, 1 transaction: ");
                     break;
             }
             long elapsed = finishTime - startTime;
@@ -270,8 +249,10 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
             text.append(elapsed + "ms");
             scrollDown();
 
-            if (realmWriteCompleted && realm2WriteCompleted && sqliteWriteCompleted) {
+            if (realmWriteCompleted  && sqliteWriteCompleted) {
                 writeComparison.setEnabled(true);
+                writeComparisonNumber.setEnabled(true);
+                writeComparisonLabel.setEnabled(true);
                 readComparison.setEnabled(true);
             }
         }
@@ -325,6 +306,8 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
             if (realmReadCompleted && sqliteReadCompleted) {
                 readComparison.setEnabled(true);
                 writeComparison.setEnabled(true);
+                writeComparisonNumber.setEnabled(true);
+                writeComparisonLabel.setEnabled(true);
             }
         }
     }
@@ -360,5 +343,16 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private List<RealmAccount> genList(long number) {
+        List<RealmAccount> list = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            RealmAccount account = new RealmAccount();
+            account.setId(UUID.randomUUID().toString());
+            account.setName("Account " + i);
+            list.add(account);
+        }
+        return list;
     }
 }

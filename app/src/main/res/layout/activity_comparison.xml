@@ -6,6 +6,48 @@
     android:layout_height="match_parent"
     tools:context="me.giacoppo.realmexampleapp.ui.comparison.ComparisonActivity">
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/commands_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/write_comparison"
+                style="@style/main_list_item"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/write_comparison_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:text="Comparison Writing" />
+
+                <EditText
+                    android:inputType="number"
+                    android:id="@+id/write_comparison_entries"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="end|center_vertical"
+                    android:hint="Default: 5k " />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/read_comparison"
+                style="@style/main_list_item"
+                android:layout_width="match_parent"
+                android:text="Comparison Reading" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView><!--
     <Button
         android:id="@+id/write_comparison"
         android:layout_width="wrap_content"
@@ -17,7 +59,7 @@
         android:text="Comparison\nwriting" />
 
     <Button
-        android:id="@+id/read_comparison"
+        android:id="@+id/read_comparison2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -25,7 +67,7 @@
         android:layout_marginEnd="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_large"
         android:text="Comparison\nreading" />
-
+-->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/write_comparison"
+        android:layout_below="@+id/commands_container"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="@dimen/spacing_normal"
         android:text="@string/results" />

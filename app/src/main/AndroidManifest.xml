@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".ui.portafogli.WalletActivity" />
         <activity android:name=".ui.portafogli.SingleAccountActivity" />
-        <activity android:name=".ui.comparison.ComparisonActivity"></activity>
+        <activity android:name=".ui.comparison.ComparisonActivity" android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
