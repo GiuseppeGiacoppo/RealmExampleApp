@@ -11,6 +11,7 @@ import me.giacoppo.realmexampleapp.ui.portafogli.WalletActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //TEST
     private TextView sampleApp, comparison;
 
     @Override
